@@ -2,7 +2,7 @@ akshare
 pyarrow
 pipetools
 dash
-dotenv
+python-dotenv
 cfkv
 dash-bootstrap-components
 pipetools
