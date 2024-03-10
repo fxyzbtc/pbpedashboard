@@ -11,6 +11,9 @@ import json
 import dash_bootstrap_components as dbc
 from pipetools import pipe
 from pathlib import Path
+from fastapi import FastAPI
+from fastapi.middleware.wsgi import WSGIMiddleware
+
 
 ASSET_PREFIX = Path("assets")
 INDEX_PE_PB_FNAME = ASSET_PREFIX / 'index_pe_pb.csv'
@@ -26,6 +29,12 @@ PREFERRED_INDEXES = ['上证指数', '深证成指', '创业板指', '中证红�
                      '医疗保健', '中证传媒', '中证全指房地产']
 # Initialize the app
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+# FastAPI app
+fastapi_app = FastAPI()
+
+# Mount Dash app
+fastapi_app.mount("/", WSGIMiddleware(app.server))
+
 
 def is_data_outdated(index_fp):
     '''check the existence and mtime is today or not, if not, download it from akshare'''
@@ -182,4 +191,4 @@ def update_favorites(name: list):
 
 # Run the app
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run_server(host='0.0.0.0', port=8050)
