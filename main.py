@@ -10,10 +10,12 @@ from dotenv import load_dotenv
 import json
 import dash_bootstrap_components as dbc
 from pipetools import pipe
+from pathlib import Path
 
-INDEX_PE_PB_FNAME = 'index_pe_pb.csv'
-INDEX_A_FNAME = 'index_a.csv'
-INDEX_HK_FNAME = 'index_hk.csv'
+ASSET_PREFIX = Path("assets")
+INDEX_PE_PB_FNAME = ASSET_PREFIX / 'index_pe_pb.csv'
+INDEX_A_FNAME = ASSET_PREFIX / 'index_a.csv'
+INDEX_HK_FNAME = ASSET_PREFIX / 'index_hk.csv'
 
 
 PREFERRED_INDEXES = ['上证指数', '深证成指', '创业板指', '中证红利', '中证500', '沪深300'
@@ -180,4 +182,4 @@ def update_favorites(name: list):
 
 # Run the app
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+    app.run(host='0.0.0.0')
